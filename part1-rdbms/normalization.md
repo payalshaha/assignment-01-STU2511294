@@ -1,4 +1,4 @@
-## Anomaly Analysis
+## 1.1 Anomaly Analysis
 Because the dataset stores orders, customers, products and sales representatives in a single table, several anomalies occur.
 
 ### 1. Insert Anomaly
