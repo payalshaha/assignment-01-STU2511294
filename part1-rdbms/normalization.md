@@ -45,6 +45,19 @@ product_name : Notebook
 
 If this row is deleted when order gets cancelled, the database might loose record describing the product "Notebook"
 
+## Normalization Justification
+
+## Normalization Justification
+
+The original orders_flat.csv dataset stores information about customers, products, orders, and sales representatives in a single table. This design causes significant redundancy because the same customer details, product information, and sales representative data are repeated across multiple rows whenever a new order is recorded. Such repetition leads to data anomalies such as insert, update, and delete anomalies. To resolve these issues, the dataset was normalized to Third Normal Form (3NF).
+
+The first step toward normalization was identifying the main entities present in the data: Customers, Products, Sales Representatives, Orders, and Order Items. Each entity was separated into its own table so that attributes depend only on their respective primary key. For example, customer details such as name, email, and city are stored only in the customers table and referenced through `customer_id` in the orders table. Similarly, product information like product name, category, and unit price is stored in the products table and referenced through `product_id`.
+
+The orders table stores order-level information such as order date, customer, and sales representative, while the order_items table stores the relationship between orders and products along with the quantity purchased. This structure removes repeating groups and ensures that each table represents a single entity.
+
+By applying this design, all non-key attributes depend only on the primary key, eliminating partial and transitive dependencies. As a result, the schema satisfies the requirements of Third Normal Form (3NF). This normalized structure reduces redundancy, prevents data inconsistencies, and ensures that updates, inserts, and deletions can be performed without causing anomalies in the database.
+
+
 Columns involved:
 product_id, product_name, category,unit_price
 
