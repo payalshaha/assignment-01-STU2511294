@@ -2,8 +2,8 @@
 SELECT
     c.name,
     COUNT(o.order_id) AS total_orders
-FROM read_csv_auto('customers.csv') c
-LEFT JOIN read_json_auto('orders.json') o
+FROM read_csv_auto('datasets/customers.csv') c
+LEFT JOIN read_json_auto('datasets/orders.json') o
 ON c.customer_id = o.customer_id
 GROUP BY c.name
 
@@ -13,8 +13,8 @@ GROUP BY c.name
 SELECT
     c.name,
     SUM(o.total_amount) AS total_order_value
-FROM read_csv_auto('customers.csv') c
-JOIN read_json_auto('orders.json') o
+FROM read_csv_auto('datasets/customers.csv') c
+JOIN read_json_auto('datasets/orders.json') o
 ON c.customer_id = o.customer_id
 GROUP BY c.name
 ORDER BY total_order_value DESC
@@ -24,10 +24,10 @@ LIMIT 3
 -- Q3: List all products purchased by customers from Bangalore
 SELECT DISTINCT
     p.product_name
-FROM read_csv_auto('customers.csv') c
-JOIN read_json_auto('orders.json') o
+FROM read_csv_auto('datasets/customers.csv') c
+JOIN read_json_auto('datasets/orders.json') o
 ON c.customer_id = o.customer_id
-JOIN read_parquet('products.parquet') p
+JOIN read_parquet('datasets/products.parquet') p
 ON o.order_id = p.order_id
 WHERE c.city = 'Bangalore'
 
@@ -39,8 +39,8 @@ SELECT
     o.order_date,
     p.product_name,
     p.quantity
-FROM read_csv_auto('customers.csv') c
-JOIN read_json_auto('orders.json') o
+FROM read_csv_auto('datasets/customers.csv') c
+JOIN read_json_auto('datasets/orders.json') o
 ON c.customer_id = o.customer_id
-JOIN read_parquet('products.parquet') p
+JOIN read_parquet('datasets/products.parquet') p
 ON o.order_id = p.order_id
